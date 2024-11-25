@@ -1,0 +1,5 @@
+.pptx
+.idea
+/vendor/
+.php-cs-fixer.cache
+/.mypdo.ini

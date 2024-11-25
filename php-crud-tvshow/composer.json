@@ -1,0 +1,31 @@
+{
+    "name": "leco0129/sae2-01",
+    "description": "Développement d'une application Web de consultation et modification de séries télé",
+    "type": "project",
+    "license": "Copyleft",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tom Lecourt-Humbert",
+            "email": "tom.lecourt-humbert@etudiant.univ-reims.fr"
+        }
+    ],
+    "require": {
+        "ext-pdo": "*"
+    },
+    "scripts": {
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "bin/run-server.sh"
+        ],
+        "test:cs": "php vendor/bin/php-cs-fixer fix --dry-run",
+        "fix:cs": "php vendor/bin/php-cs-fixer fix"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.58"
+    }
+}
