@@ -43,5 +43,5 @@ Tous les programmes dans le dossier "public" sont les pages, dans le dossier "ad
 
 ## Pour lancer le projet
 
-Pour se faire, rendez-vous  à la racine du projet et placer vous dans un terminal. Ensuite, utilisez la commande "composer start:linux" ou "composer start:windows", tout dépendant du système d'exploitation que vous utilisez. Enfin, rendez-vous dans votre navigateur, et tapez l'adresse suivante dans votre barre de lien : http://localhost:8000/. 
+Pour se faire, rendez-vous  à la racine du projet et placer vous dans un terminal. Ensuite, utilisez la commande "composer start" pour lancer le serveur web local. Enfin, rendez-vous dans votre navigateur, et tapez l'adresse suivante dans votre barre de lien : http://localhost:8000/. 
 
