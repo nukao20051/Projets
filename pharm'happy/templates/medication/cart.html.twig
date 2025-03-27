@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier{% endblock %}
+
+{% block body %}
+    <h1 class="page-title mb-4">Mon panier</h1>
+    {% if samples is not empty %}
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered" aria-labelledby="cart-table">
+                <thead>
+                <tr>
+                    <th scope="col" aria-label="Nom du médicament">Médicament</th>
+                    <th scope="col" aria-label="Date d'expiration">Date d'expiration</th>
+                    <th scope="col" aria-label="Prix">Prix</th>
+                    <th scope="col" aria-label="Actions disponibles">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set fullPrice = 0 %}
+                {% for sample in samples %}
+                    {% set fullPrice = fullPrice + sample.medication.price %}
+                    <tr class="med">
+                        <td>{{ sample.medication.name }}</td>
+                        <td>{{ sample.expiration|date('d-m-Y') }}</td>
+                        <td>{{ sample.medication.price|number_format(2, ',', '') }} € TTC</td>
+                        <td>
+                            <a href="{{ path('app_cart_remove', {id: sample.id}) }}" class="btn btn-danger btn-sm" aria-label="Retirer le médicament {{ sample.medication.name }} du panier">Retirer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                    <th colspan="4">Prix total de la commande : {{ fullPrice|number_format(2, ',', '') }} € TTC</th>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex flex-column flex-sm-row justify-content-between gap-3">
+            <a href="{{ path('app_cart_clear') }}" class="btn btn-danger danger flex-grow-1">Vider mon panier</a>
+            <a href="{{ path('app_medication') }}" class="btn btn-secondary flex-grow-1">Continuer mes achats</a>
+            <a href=
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+               "{{ path('app_cart_order') }}"
+            {% else %}
+                "{{ path('app_login') }}"
+            {% endif %}
+            class="btn btn-primary text-light">Commander
+            </a>
+        </div>
+    {% else %}
+        <div class="alert alert-warning mt-4" role="alert" aria-label="Panier Vide">
+            Votre panier est vide.
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{% block title %}Pharm'Happy{% endblock %}</title>
+    {% block stylesheets %}
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+    {% endblock %}
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+<nav class="navbar d-flex justify-content-between align-items-center px-2">
+
+    <!-- Logo pour grand écran -->
+    <a class="navbar-brand d-none d-lg-block" href="{{ path('app_medication') }}" title="Accueil" aria-label="Retour à la page d'accueil">
+        <img src="{{ asset('img/Happy.png') }}" alt="Logo" id="logo" style="width: auto; height: 40px;">
+    </a>
+
+    <!-- Icône Home pour petit écran -->
+    <a class="btn btn-outline-success btn-light me-2 d-flex align-items-center d-lg-none" href="{{ path('app_medication') }}" title="Accueil" aria-label="Retour à la page d'accueil">
+        <span class="material-symbols-outlined">home</span>
+    </a>
+
+    <!-- Barre de recherche -->
+    <form class="d-flex mx-auto" style="flex: 1; max-width: 600px;" action="{{ path('app_medication') }}">
+        <div class="input-group">
+            <input class="form-control" type="search" placeholder="Rechercher un produit" aria-label="Champ de recherche" name="search" value="{{ search|default('') }}">
+            <button class="btn btn-success me-2 d-flex align-items-center" type="submit" title="Rechercher" aria-label="Lancer la recherche">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+        </div>
+    </form>
+
+    <!-- Boutons de connexion et panier -->
+    <div class="d-flex align-items-center">
+        {% if not is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-outline-success btn-light me-2 d-flex align-items-center position-relative" href="{{ path('app_cart_show') }}" title="Panier" aria-label="Voir le panier">
+                <span class="material-symbols-outlined">shopping_cart</span>
+                {% set cartItemCount = app.session.get('cart')|length %}
+                {% if cartItemCount > 0 %}
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                        {{ cartItemCount }}
+                    </span>
+                {% endif %}
+            </a>
+        {% endif %}
+        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a class="btn btn-outline-success btn-light d-flex align-items-center" href="{{ path('app_login') }}" title="Connexion" aria-label="Se connecter">
+                <span class="material-symbols-outlined d-lg-none">login</span>
+                <span class="d-none d-lg-inline">Se connecter</span>
+            </a>
+        {% endif %}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-outline-success btn-light me-2 d-flex align-items-center" href="/admin" title="Tableau de bord Administrateur" aria-label="Accéder au tableau de bord administrateur">
+                    <span class="material-symbols-outlined">settings</span>
+                </a>
+
+                <a class="btn btn-outline-success btn-light me-2 d-flex align-items-center" href="/order" title="Liste des commandes" aria-label="Voir la liste des commandes">
+                    <span class="material-symbols-outlined">orders</span>
+                </a>
+            {% endif %}
+            <a class="btn btn-outline-success btn-light me-2 d-flex align-items-center" href=
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
+                    "{{ path('app_person') }}" title="Liste des profils" aria-label="Voir la liste des profils"
+                {% else %}
+                    "{{ path('app_person_show', {id: app.user.id}) }}" title="Profil" aria-label="Accéder à mon profil"
+                {% endif %} }>
+                <span class="material-symbols-outlined">person</span>
+            </a>
+            <a class="btn btn-outline-success btn-light me-2 d-flex align-items-center" href="{{ path('app_logout') }}" title="Déconnexion" aria-label="Se déconnecter">
+                <span class="material-symbols-outlined">logout</span>
+            </a>
+        {% endif %}
+    </div>
+</nav>
+<div class="container my-4 flex-grow-1">
+    {% block body %}{% endblock %}
+</div>
+<footer class="mb-2 flex">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="{{ path('app_about') }}" class="nav-link px-2 link-secondary" aria-label="À propos">À propos</a></li>
+        <li class="nav-item"><a href="{{ path('app_about_terms_of_service') }}" class="nav-link px-2 link-secondary" aria-label="Conditions générales de vente">Conditions Générales de Vente</a></li>
+        <li class="nav-item"><a href="{{ path('app_about_faq') }}" class="nav-link px-2 link-secondary" aria-label="Questions fréquentes">FAQ</a></li>
+        <li class="nav-item"><a href="{{ path('app_about_privacy_policy') }}" class="nav-link px-2 link-secondary" aria-label="Politique de confidentialité">Politique de Confidentialité</a></li>
+        <li class="nav-item"><a href="{{ path('app_about_cookie_policy') }}" class="nav-link px-2 link-secondary" aria-label="Politique d'utilisation des cookies">Politique de Cookies</a></li>
+        <li class="nav-item"><a href="{{ path('app_about_legal_notice') }}" class="nav-link px-2 link-secondary" aria-label="Mentions légales">Mentions Légales</a></li>
+    </ul>
+    <p class="text-center text-body-secondary">© 2024 Pharm'Happy & Co</p>
+</footer>
+<a id="chat-bot-link" href="{{ path('app_chat_bot') }}" title="Parler à PharmBot" aria-label="Parler avec PharmBot, l'assistant virtuel">
+    <img src="{{ asset('img/pharmbot.png') }}" alt="Chatbot">
+</a>
+{% block javascripts %}{% endblock %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>

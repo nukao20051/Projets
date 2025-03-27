@@ -1,0 +1,230 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\PersonRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: PersonRepository::class)]
+class Person
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $lastname = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $firstname = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $birthDat = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $phone = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $mail = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $password = null;
+
+    #[ORM\Column]
+    private ?int $type = null;
+
+    #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'person')]
+    private Collection $orders;
+
+    #[ORM\OneToMany(targetEntity: Address::class, mappedBy: 'person')]
+    private Collection $address;
+
+    #[ORM\ManyToOne(inversedBy: 'persons')]
+    private ?MedicalOffice $MedicalOffice = null;
+
+    #[ORM\Column(type: Types::BLOB, nullable: true)]
+    private $avatar;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+        $this->address = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): static
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): static
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getBirthDat(): ?\DateTimeInterface
+    {
+        return $this->birthDat;
+    }
+
+    public function setBirthDat(?\DateTimeInterface $birthDat): static
+    {
+        $this->birthDat = $birthDat;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): static
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getMail(): ?string
+    {
+        return $this->mail;
+    }
+
+    public function setMail(string $mail): static
+    {
+        $this->mail = $mail;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(int $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getPerson() === $this) {
+                $order->setPerson(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Address>
+     */
+    public function getAddress(): Collection
+    {
+        return $this->address;
+    }
+
+    public function addAddress(Address $address): static
+    {
+        if (!$this->address->contains($address)) {
+            $this->address->add($address);
+            $address->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(Address $address): static
+    {
+        if ($this->address->removeElement($address)) {
+            // set the owning side to null (unless already changed)
+            if ($address->getPerson() === $this) {
+                $address->setPerson(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getMedicalOffice(): ?MedicalOffice
+    {
+        return $this->MedicalOffice;
+    }
+
+    public function setMedicalOffice(?MedicalOffice $MedicalOffice): static
+    {
+        $this->MedicalOffice = $MedicalOffice;
+
+        return $this;
+    }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar): static
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+}

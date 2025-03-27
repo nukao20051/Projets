@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimer une personne{% endblock %}
+
+{% block body %}
+    <h1>Supprimer la personne</h1>
+    <p>Êtes-vous sûr de vouloir supprimer {{ person.firstname }} {{ person.lastname }} ?</p>
+    {{ form_start(form) }}
+    <div class="form-group">
+        {{ form_row(form.delete) }}
+        {{ form_row(form.cancel) }}
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

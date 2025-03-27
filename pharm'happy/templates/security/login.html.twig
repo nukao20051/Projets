@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Se connecter{% endblock %}
+
+{% block body %}
+    <form method="post">
+        {% if error %}
+            <div role="alert" class="alert alert-danger" aria-live="assertive">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+            </div>
+        {% endif %}
+
+        <h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
+
+        <div class="mb-3">
+            <label for="inputEmail" class="form-label">Adresse mail</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted">Nous ne partagerons votre adresse mail à personne.</small>
+        </div>
+
+        <div class="mb-3">
+            <label for="inputPassword" class="form-label">Mot de passe</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required aria-describedby="passwordHelp">
+            <small id="passwordHelp" class="form-text text-muted">Entrez votre mot de passe pour vous connecter.</small>
+        </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        <button class="btn btn-lg btn-primary w-100 mt-3" type="submit">Se connecter</button>
+    </form>
+
+    <div class="text-muted d-flex justify-content-center m-2">
+        <p>Je n'ai pas de compte,
+            <a class="text-muted" href="{{ path('app_person_create') }}">je souhaite en créer un</a>
+        </p>
+    </div>
+{% endblock %}

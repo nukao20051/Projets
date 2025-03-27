@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des personnes{% endblock %}
+
+{% block body %}
+    <h1 class="page-title mb-4">Liste des personnes</h1>
+    <div class="row justify-content-center">
+        {% for person in persons %}
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4" role="article" aria-labelledby="person-{{ person.id }}">
+                <div class="card h-100" tabindex="0">
+                    <div class="card-body text-center">
+                        <h5 class="card-title" id="person-{{ person.id }}">{{ person.firstname }} {{ person.lastname }}</h5>
+                        <p class="visually-hidden">Cliquez pour voir les détails de {{ person.firstname }} {{ person.lastname }}</p>
+                        <a class="btn btn-primary w-100" href="{{ path('app_person_show', {id: person.id}) }}"
+                           aria-label="Voir les détails de {{ person.firstname }} {{ person.lastname }}">Voir les détails</a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <p>Aucune personne trouvée.</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

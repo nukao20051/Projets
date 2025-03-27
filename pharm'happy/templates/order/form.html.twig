@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Passer commande{% endblock %}
+
+{% block body %}
+    <h1>Passer votre commande</h1>
+    <br>
+    <span><p><strong>Prix de la commande : </strong>{{ price }}€ TTC</p>{% if app.user.medicalOffice is not null %}<p class="alert alert-success">En tant que professionnel affilié à une pharmacie, vous bénéficiez d'une réduction de 5% sur le total de votre commande.</p>{% endif %}</span>
+    <p><strong>Date de livraison estimée : </strong>{{ date|date('d/m/Y') }}</p>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <small id="addressHelp" class="form-text text-muted">
+        Si vous souhaitez ajouter une nouvelle adresse, cliquez
+        <a href="{{ path('app_address_create', {return_to: app.request.uri}) }}" aria-label="Ajouter une nouvelle adresse">ici</a>.
+        Si vous voulez modifier une adresse, cliquez
+        <a href="{{ path('app_address', {return_to: app.request.uri}) }}" aria-label="Modifier une adresse">ici</a>.
+    </small>
+    <br><br>
+    {% if is_granted('ROLE_USER') %}
+        <button type="submit" class="btn btn-success">Confirmer la commande</button>
+    {% endif %}
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation de suppression{% endblock %}
+
+{% block body %}
+    <h1>Supprimer {{ medication.name }}</h1>
+
+    <p>Êtes-vous sûr de vouloir supprimer ce médicament ? Cette action est irréversible.</p>
+
+    {{ form_start(form) }}
+    <div class="form-group">
+        {{ form_row(form.delete) }}
+        {{ form_row(form.cancel) }}
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

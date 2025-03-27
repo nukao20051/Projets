@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de la commande n°{{ order.id }}{% endblock %}
+
+{% block body %}
+    <h1 class="page-title mb-3">Détail de la commande n°{{ order.id }}</h1>
+
+    <!-- Détails de la commande -->
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-subtitle text-muted">
+                Livraison le {{ order.deliverydate|date('d/m/Y') }}
+                à {{ order.address.num }} {{ order.address.street }},
+                {{ order.address.city }} ({{ order.address.pc }})
+            </h5>
+            <hr>
+            <p><strong>Total :</strong> <span class="text-success">{{ order.totalPrice }} € TTC</span></p>
+            <p><strong>État de la commande :</strong> {{ order.orderState }}</p>
+        </div>
+    </div>
+
+    <!-- Détails des échantillons -->
+    <div class="mt-4">
+        <h5>Détails de la commande :</h5>
+        <ul class="list-group list-group-flush" style="margin-top: -5px;">
+            {% for sample in samples %}
+                <li class="list-group-item">
+                    {{ sample.medication.name }} -
+                    {{ sample.medication.dosage }} {{ sample.medication.unit }}
+                </li>
+            {% else %}
+                <li class="list-group-item text-muted py-1">Aucun échantillon associé à cette commande.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="mt-4">
+        <h5>Itinéraire vers l'adresse de livraison :</h5>
+        <div class="map-container" style="position:relative; overflow:hidden; padding-top:40%; border-radius:10px">
+            <iframe
+                    src="https://www.google.com/maps?q=IUT+de+Reims+to+{{ order.address.num }}+{{ order.address.street }}+{{ order.address.city }}&output=embed"
+                    style="border:0; position:absolute; top:0; left:0; width:100%; height:100%;"
+                    allowfullscreen
+                    loading="lazy"
+                    aria-label="Itinéraire vers l'adresse de livraison de la commande {{ order.id }}">
+            </iframe>
+        </div>
+    </div>
+
+{% endblock %}

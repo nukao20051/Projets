@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pharm'Happy{% endblock %}
+
+{% block body %}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="row g-3">
+        <!-- Filtrage des produits -->
+        <div class="d-flex flex-row">
+            <h2 class="me-4 d-none d-lg-block">Nos Produits</h2>
+            <form class="d-flex flex-row flex-grow-1" method="POST" action="{{ path('app_medication') }}">
+                <label for="filter" hidden>Filtrage</label>
+                <select class="form-select me-2" id="filter" name="filter">
+                    <option value="" {% if filter == '' %}selected{% endif %}>Trier par :</option>
+                    <option value="p-asc" {% if filter == 'p-asc' %}selected{% endif %}>Prix croissant</option>
+                    <option value="p-desc" {% if filter == 'p-desc' %}selected{% endif %}>Prix décroissant</option>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
+                        <option value="s-asc" {% if filter == 's-asc' %}selected{% endif %}>Stock croissant</option>
+                        <option value="s-desc" {% if filter == 's-desc' %}selected{% endif %}>Stock décroissant</option>
+                    {% endif %}
+                </select>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <label for="stock" hidden>Stock</label>
+                    <select class="form-select me-2" id="stock" name="inStock">
+                        <option value="" {% if inStock == '' %}selected{% endif %}>Choisissez une option de stock :</option>
+                        <option value="in-stock" {% if inStock == 'in-stock' %}selected{% endif %}>En stock</option>
+                        <option value="out-of-stock" {% if inStock == 'out-of-stock' %}selected{% endif %}>Hors stock</option>
+                    </select>
+                {% endif %}
+                <button class="btn btn-primary text-light" type="submit" aria-label="Appliquer le filtre de tri">Confirmer</button>
+            </form>
+
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
+                <a class="btn btn-primary text-light mx-2 d-flex align-items-center" href="{{ path('app_medication_create') }}" aria-label="Ajouter un nouveau médicament">
+                    <span class="material-symbols-outlined">add</span>
+                </a>
+            {% endif %}
+        </div>
+
+        <!-- Liste des médicaments -->
+        {% for medication in medications %}
+            {% set medic = medication.medic %}
+            {% set filterExpired = stockExpired|filter(medicexp => medicexp.medic.id == medic.id) %}
+            {% if is_granted('ROLE_PHARMACY') or is_granted('ROLE_ADMIN') or not medic.pharmacyOnly %}
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                <h5 class="card-title text-truncate">{{ medic.name }}</h5>
+                                <p>{{ medic.price|number_format(2, ',', '') }} €</p>
+
+                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
+                                    <p class="card-text">
+                                        {{ medication.stock }} en stock <br>
+                                        {% if filterExpired|length > 0 %}
+                                            {{ filterExpired|first.stockExpired }} échantillons périmé
+                                        {% else %}
+                                            Aucun échantillon périmé
+                                        {% endif %}
+                                    </p>
+                                {% else %}
+                                    {% if filterExpired|length > 0 %}
+                                    {% endif %}
+                                    {% if (filterExpired|length > 0 and filterExpired|first.stockExpired == medication.stock) or (medication.stock == 0) %}
+                                        <div class="d-flex border border-danger rounded px-3 py-1 text-danger fw-bold align-items-center justify-content-evenly w-75">
+                                            <p class="mb-auto d-flex"><span class="material-symbols-outlined me-2">warning</span> PAS DE STOCK </p>
+                                        </div>
+                                    {% elseif (filterExpired|length > 0 and ((medication.stock - filterExpired|first.stockExpired) < 3) or (medication.stock < 3)) %}
+                                        <div class="d-flex border border-warning rounded px-3 py-1 text-warning fw-bold align-items-center justify-content-evenly w-75">
+                                            <p class="mb-auto d-flex"><span class="material-symbols-outlined me-2">warning</span> STOCK FAIBLE </p>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+
+                            <div class="flex-shrink-0">
+                                <!-- Image du médicament -->
+                                <div class="medication-image" style="width: 100px; height: 100px; overflow: hidden;">
+                                    {% if medic.img %}
+                                        <img src="{{ medic.getImgBase64() }}"
+                                             alt="Image de {{ medic.name }} - Médicament"
+                                             class="img-fluid"
+                                             style="object-fit: cover; width: 100%; height: 100%; transform: scale(2);">
+                                    {% else %}
+                                        <img src="{{ asset('img/med_default.png') }}"
+                                             alt="Image par défaut - Médicament non disponible"
+                                             class="img-fluid"
+                                             style="object-fit: cover; width: 100%; height: 100%; transform: scale(1.2);">
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Boutons d'action -->
+                        <div class="d-flex gap-3">
+                            <a href="{{ path('app_medication_show', {id: medic.id}) }}" class="btn btn-primary mt-3 mb-auto flex-grow-1" aria-label="Voir les détails de {{ medic.name }}">Voir Détails</a>
+                            {% if not is_granted('ROLE_ADMIN') %}
+                                {% if medication.stock > 0 and not (filterExpired|length > 0 and filterExpired|first.stockExpired == medication.stock) %}
+                                    <a class="btn btn-primary mt-3 mb-auto d-flex" href="{{ path('app_medication_add_to_cart', {id: medic.id}) }}" aria-label="Ajouter {{ medic.name }} au panier">
+                                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
+                            <a href="{{ path('app_sample', {id: medic.id}) }}" class="btn btn-primary mt-3 mb-auto" aria-label="Voir les échantillons de {{ medic.name }}">
+                                Voir Échantillons
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

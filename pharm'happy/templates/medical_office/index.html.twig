@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pharm'Happy{% endblock %}
+
+{% block body %}
+    <h1 class="text-center mb-4">Formulaire de pharmacie</h1>
+    <h4>Pour ajouter une pharmacie remplissez ce formulaire</h4>
+    <form action="{{ path('app_confirmation') }}" method="POST">
+        <div class="mb-3">
+            <label for="fullName" class="form-label">Nom complet</label>
+            <input type="text" id="fullName" class="form-control" name="fullName" placeholder="Entrez votre nom complet" required>
+        </div>
+        <div class="mb-3">
+            <label for="pharmacyName" class="form-label">Nom de la pharmacie</label>
+            <input type="text" id="pharmacyName" class="form-control" name="pharmacyName" placeholder="Entrez le nom de la pharmacie" required>
+        </div>
+        <div class="mb-3">
+            <div class="address">
+                <div class="labelForm">
+                    <label class="form-label w-50" for="pharmacyAddressSave">Adresse de la pharmacie</label>
+                    <label class="form-label" style="margin-left: 10px" for="pharmacyAddress">Ou choisissez parmi vos adresses enregistrées</label>
+                </div>
+                <div class="fieldForm" style="display: flex">
+                    <input class="form-control w-50" style="margin-right: 20px" id='pharmacyAddressSave' type='text'>
+                    <select id="pharmacyAddress" class="form-control w-50">
+                        {% for address in addresses %}
+                            <option value="{{ address.num }} {{ address.street }}, {{ address.city }} ({{ address.pc }})">{{ address.num }} {{ address.street }}, {{ address.city }} ({{ address.pc }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <small id="addressHelp" class="form-text text-muted">
+                Si vous souhaitez ajouter une nouvelle adresse, cliquez
+                <a href="{{ path('app_address_create', {return_to: app.request.uri}) }}" aria-label="Ajouter une nouvelle adresse">ici</a>.
+                Si vous voulez modifier une adresse, cliquez
+                <a href="{{ path('app_address', {return_to: app.request.uri}) }}" aria-label="Modifier une adresse">ici</a>.
+            </small>
+        </div>
+        <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea id="message" name="message" class="form-control" placeholder="Votre message ici..." required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="attachments" class="form-label">Fichier</label>
+            <input type="file" id="attachments" name="attachments" class="form-control" placeholder="Piece(s) jointe(s)"></input>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+        </div>
+    </form>
+    <script>
+        document.querySelector('#pharmacyAddressSave').addEventListener('input', () => {
+            document.querySelector('#pharmacyAddress').value = '';
+        })
+
+        document.querySelector('#pharmacyAddress').addEventListener('input', () => {
+            document.querySelector('#pharmacyAddressSave').value = '';
+        })
+    </script>
+{% endblock %}

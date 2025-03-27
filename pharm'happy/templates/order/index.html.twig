@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des commandes{% endblock %}
+
+{% block body %}
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-warning w-100 m-2" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <h1 class="page-title">Liste des commandes</h1>
+    <form class="d-flex flex-column justify-content-center" method="POST" action="{{ path('app_order') }}">
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
+            <label for="byName" class="visually-hidden">Rechercher par nom/prénom</label>
+            <input class="form-control m-2" type="search" id="byName" name="byName" placeholder="Rechercher par nom/prénom" value="{{ byName }}" aria-label="Recherche par nom ou prénom">
+        {% endif %}
+
+        <label for="filter" class="m-2">Tri</label>
+        <select class="form-select m-2" id="filter" name="filter" aria-label="Choisir le critère de tri">
+            <option value="" {% if filter == '' %}selected{% endif %}>Choisissez une option</option>
+            <option value="d-asc" {% if filter == 'd-asc' %}selected{% endif %}>Date croissante</option>
+            <option value="d-desc" {% if filter == 'd-desc' %}selected{% endif %}>Date décroissante</option>
+            <option value="m-asc" {% if filter == 'm-asc' %}selected{% endif %}>Montant croissant</option>
+            <option value="m-desc" {% if filter == 'm-desc' %}selected{% endif %}>Montant décroissant</option>
+        </select>
+
+        <label for="orderState" class="m-2">État de la commande</label>
+        <select class="form-select m-2" id="orderState" name="orderState" aria-label="Filtrer par état de la commande">
+            <option value="" {% if orderState == '' %}selected{% endif %}>Choisissez une option</option>
+            <option value="inPreparation" {% if orderState == 'inPreparation' %}selected{% endif %}>En cours de préparation</option>
+            <option value="beingDelivered" {% if orderState == 'beingDelivered' %}selected{% endif %}>En cours de livraison</option>
+            <option value="delivered" {% if orderState == 'delivered' %}selected{% endif %}>Livrée(s)</option>
+        </select>
+
+        <button class="btn btn-primary text-light m-2 w-100" type="submit" aria-label="Appliquer les filtres">Confirmer</button>
+    </form>
+    <div class="d-flex d-md-flex d-sm-flex flex-row flex-wrap justify-content-center overflow-y-scroll">
+        {% for order in orders %}
+            <div class="card m-2 d-sm-flex" style="width: 400px;">
+                <div class="card-title m-3 w-100">
+                    <span>Commande de {{ order.firstname }} {{ order.lastname }} </span>
+                    <span class="badge text-bg-success"> № {{ order.order.id }}</span>
+                </div>
+                <div class="card-body">
+                    <small class="text-muted">
+                        Livraison le {{ order.order.deliverydate|date('m/d/Y') }}
+                        à {{ order.num }} {{ order.street }} {{ order.city }} {{ order.pc }}
+                    </small>
+                </div>
+                <div class="d-flex justify-content-center align-items-center w-100 mb-3">
+                    <a class="link-info btn btn-primary w-50 text-light" href="{{ path('app_order_show', {id: order.order.id}) }}" aria-label="Voir les détails de la commande">
+                        Voir les détails
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

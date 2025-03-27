@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conditions Générales de Vente{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <h1 class="mb-4 text-center" aria-labelledby="title">Conditions Générales de Vente</h1>
+
+        <div class="card shadow-sm" aria-labelledby="modalities-order">
+            <div class="card-body">
+                <h2 class="h4 mb-3" id="modalities-order">1. Modalités de commande</h2>
+                <p>
+                    <span class="fw-bold">Les commandes peuvent être passées directement sur notre site internet.</span> Une fois la commande validée, un email de confirmation vous sera envoyé.
+                </p>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mt-3" aria-labelledby="modalities-payment">
+            <div class="card-body">
+                <h2 class="h4 mb-3" id="modalities-payment">2. Modalités de paiement</h2>
+                <p>
+                    <span class="fw-bold">Le paiement peut être effectué par carte bancaire, PayPal ou tout autre moyen de paiement proposé sur notre site.</span> Le paiement est sécurisé et les informations de paiement ne sont pas conservées.
+                </p>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mt-3" aria-labelledby="modalities-delivery">
+            <div class="card-body">
+                <h2 class="h4 mb-3" id="modalities-delivery">3. Modalités de livraison</h2>
+                <p>
+                    <span class="fw-bold">Les produits sont livrés à l'adresse indiquée lors de la commande.</span> Les délais de livraison varient en fonction de la destination et du mode de livraison choisi. Les frais de livraison sont indiqués lors de la commande.
+                </p>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mt-3" aria-labelledby="modalities-return">
+            <div class="card-body">
+                <h2 class="h4 mb-3" id="modalities-return">4. Modalités de retour</h2>
+                <p>
+                    <span class="fw-bold">Vous disposez d'un délai de 14 jours à compter de la réception de votre commande pour retourner les produits.</span> Les produits doivent être retournés dans leur état d'origine et les frais de retour sont à votre charge.
+                </p>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mt-3" aria-labelledby="right-of-withdrawal">
+            <div class="card-body">
+                <h2 class="h4 mb-3" id="right-of-withdrawal">5. Droit de rétractation</h2>
+                <p>
+                    <span class="fw-bold">Conformément à la législation en vigueur, vous disposez d'un droit de rétractation de 14 jours à compter de la réception de votre commande.</span> Pour exercer ce droit, vous devez nous notifier votre décision par email à <a href="mailto:contact@pharmhappy.fr">contact@pharmhappy.fr</a>.
+                </p>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mt-3" aria-labelledby="warranties">
+            <div class="card-body">
+                <h2 class="h4 mb-3" id="warranties">6. Garanties</h2>
+                <p>
+                    <span class="fw-bold">Nos produits bénéficient de la garantie légale de conformité et de la garantie contre les vices cachés.</span> En cas de produit défectueux, vous pouvez nous contacter pour un échange ou un remboursement.
+                </p>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mt-3" aria-labelledby="after-sales-service">
+            <div class="card-body">
+                <h2 class="h4 mb-3" id="after-sales-service">7. Service après-vente</h2>
+                <p>
+                    <span class="fw-bold">Pour toute question ou réclamation, vous pouvez contacter notre service après-vente par email à <a href="mailto:contact@pharmhappy.fr">contact@pharmhappy.fr</a></span> ou par téléphone au +33 1 23 45 67 89.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

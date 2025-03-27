@@ -1,0 +1,21 @@
+{% set title = "Suppression de l'échantillon #{ sample.id }" %}
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+{% block body %}
+    <h1>{{ title }}</h1>
+    {{ form_start(form, {
+        method: 'POST',
+        attr: {class: 'd-flex row-gap-3 justify-content-evenly'}
+    }) }}
+    {{ form_row(form.delete, {
+        label: 'Supprimer',
+        attr: {class: 'btn btn-primary'}
+    }) }}
+    {{ form_row(form.cancel, {
+        label: 'Retour',
+        attr: {class: 'btn btn-secondary'}
+    }) }}
+    {{ form_end(form) }}
+{% endblock %}

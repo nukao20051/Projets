@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ChatBot{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="overflow-auto" style="height: 400px; border: 1px solid #ccc; padding: 10px; border-radius: .25rem;">
+            <div id="chat-container" class="d-flex flex-column-reverse">
+                <div class="bg-success bg-opacity-10 rounded p-2 mb-2 text-start">Bonjour je suis PharmBot! Comment puis-je vous aider aujourd'hui ?</div>
+            </div>
+        </div>
+
+        <form id="chat-form" class="mt-3" aria-labelledby="chat-form">
+            <div class="input-group">
+                <input type="text" id="user-input" class="form-control" placeholder="Écrivez quelque chose..." required aria-label="Message à envoyer">
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+            </div>
+        </form>
+    </div>
+    <a href="#" id="chat-bot-link" class="position-fixed bottom-0 end-0 p-3 m-3 rounded-circle bg-primary text-white" aria-label="Ouvrir le chatbot">
+        <i class="fa-solid fa-robot fa-lg" aria-hidden="true"></i>
+    </a>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatContainer = document.getElementById('chat-container');
+            const chatForm = document.getElementById('chat-form');
+            const userInput = document.getElementById('user-input');
+
+            chatForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const message = userInput.value;
+                userInput.value = '';
+
+                appendMessage(message, 'bg-light rounded p-2 mb-2 text-end');
+
+                try {
+                    const response = await fetch(`/chatbot/getResponse?message=${encodeURIComponent(message)}`, {
+                        method: 'GET',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    });
+
+                    const data = await response.json();
+                    if (response.ok) {
+                        appendMessage(data.text, 'bg-success bg-opacity-10 rounded p-2 mb-2 text-start');
+                    } else {
+                        appendMessage(data.error || "An error occurred.", 'bg-danger bg-opacity-10 rounded p-2 mb-2 text-start');
+                    }
+                } catch (error) {
+                    appendMessage("An unexpected error occurred.", 'bg-danger bg-opacity-10 rounded p-2 mb-2 text-start');
+                    console.error(error);
+                }
+
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            });
+
+            function appendMessage(message, messageClass) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = messageClass;
+                messageDiv.innerHTML = message;
+                chatContainer.prepend(messageDiv);
+            }
+        });
+    </script>
+{% endblock %}

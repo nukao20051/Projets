@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if is_granted('ROLE_ADMIN') %}
+    Détails de {{ person.firstname }} {{ person.lastname }}
+    {% else %}
+    Mon compte
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <h1 class="page-title mb-4">
+        {% if is_granted('ROLE_ADMIN') %}
+            Détails de {{ person.firstname }} {{ person.lastname }}
+        {% else %}
+            Mon compte
+        {% endif %}
+    </h1>
+
+    <section class="d-md-flex flex-column align-items-center mb-4" aria-labelledby="person-details">
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-warning w-100 m-2" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        <ul class="list-group w-100" id="person-details">
+            <li class="list-group-item"><strong>Nom : </strong>{{ person.lastname }}</li>
+            <li class="list-group-item"><strong>Prénom : </strong>{{ person.firstname }}</li>
+            <li class="list-group-item"><strong>Date de naissance : </strong>{{ person.birthDat|date('d/m/Y') }}</li>
+            <li class="list-group-item"><strong>Téléphone : </strong>{{ person.phone }}</li>
+            <li class="list-group-item"><strong>Email : </strong>{{ person.email }}</li>
+        </ul>
+    </section>
+
+    {% if not is_granted('ROLE_ADMIN') and person.medicalOffice is null %}
+        <a href="{{ path('app_mo_send_email') }}" class="mb-4 text-muted f"><small>Pour ajouter une pharmacie à votre profil, cliquez ici</small></a>
+    {% elseif person.medicalOffice %}
+        <h1 class="page-title mb-4">{% if is_granted('ROLE_ADMIN') %}Pharmacie de l'utilisateur{% else %}Ma pharmacie{% endif %}</h1>
+        <section class="d-md-flex flex-column align-items-center mb-4" aria-labelledby="medicalOffice-details">
+            <ul class="list-group w-100" id="person-details">
+                <li class="list-group-item"><strong>Nom : </strong>{{ person.medicalOffice.name }}</li>
+                <li class="list-group-item"><strong>Téléphone : </strong>{{ person.medicalOffice.phone }}</li>
+                <li class="list-group-item"><strong>Adresse : </strong>{{ person.medicalOffice.location }}</li>
+            </ul>
+        </section>
+    {% endif %}
+
+    <section class="d-flex w-100 mt-4" aria-labelledby="account-actions">
+        <h2 id="account-actions" class="visually-hidden">Actions disponibles pour gérer votre compte</h2>
+        {% if not is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_address', {return_to: app.request.uri}) }}" class="btn btn-primary me-3 flex-grow-1" aria-label="Gérer mes adresses">Gérer mes adresses</a>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('app_order', {id: person.id}) }}" class="btn btn-primary flex-grow-1" aria-label="Voir commandes">Voir les commandes</a>
+        {% else %}
+            <a href="{{ path('app_order') }}" class="btn btn-primary flex-grow-1" aria-label="Voir commandes">Voir mes commandes</a>
+        {% endif %}
+    </section>
+{% endblock %}

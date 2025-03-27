@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des échantillons{% endblock %}
+
+{% block body %}
+    <h1 class="page-title">Liste des échantillons</h1>
+
+    <div class="expirationDateForm w-100 d-flex p-3 mb-3 flex-row justify-content-center align-items-center card" aria-labelledby="expiration-filter">
+        <form method="get" class="">
+            <label class="form-group d-flex align-items-center gap-1">
+                <span class="me-2">Expiration entre le</span>
+                <input type="date" name="expirationStart" class="p-2 fs-7 rounded" value="{{ expirationStart }}" aria-label="Date de début d'expiration">
+                <span class="m-2"> et </span>
+                <input type="date" name="expirationEnd" class="p-2 fs-7 rounded" value="{{ expirationEnd }}">
+                <input type="hidden" name="medicationId" value="{{ medicationId }}">
+                <button type="submit" class="btn border-black border-1 d-flex align-items-center" aria-label="Filtrer les échantillons par date d'expiration">
+                    <span class="material-symbols-outlined">
+                        search
+                    </span>
+                </button>
+            </label>
+        </form>
+        <div class="createSample">
+            <a href="{{ path('app_sample_create') }}" class="btn btn-primary mx-1 d-flex align-items-center" aria-label="Ajouter un nouvel échantillon">Ajouter un nouvel échantillon
+                <span class="material-symbols-outlined">
+                    add
+                </span>
+            </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+
+    {% if not samples %}
+        <h5 class="mt-4 text-center">Aucun échantillon disponible</h5>
+    {% endif %}
+    {% for sample in samples %}
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4" aria-labelledby="sample-{{ sample.id }}">
+            <div class="sample card h-100 p-3">
+                <div class="d-flex flex-row justify-content-around mb-3" id="sample-{{ sample.id }}">
+                    <span>Échantillon de {{ sample.medication.name }} </span>
+                    <span class="badge text-bg-info" style="height: 24px"> № {{ sample.id }}</span>
+                </div>
+                <div class="d-flex" style='min-height: 50px'>
+                    <small class="text-muted me-2">Expire le {{ sample.expiration|date('d/m/Y') }}</small>
+                    {% if sample.expiration %}
+                        {% set timeDiff = sample.expiration|date('U') - 'now'|date('U') %}
+                        {% if timeDiff <= 30 * 86400 and timeDiff > 0 %}
+                            <div class="d-flex border border-warning rounded px-3 py-1 text-warning fw-bold align-items-center justify-content-evenly mb-3">
+                                <p class="mb-auto d-flex"><span class="material-symbols-outlined me-2">warning</span>BIENTOT</p>
+                            </div>
+                        {% elseif timeDiff <= 0 %}
+                            <div class="d-flex border border-danger rounded px-3 py-1 text-danger fw-bold align-items-center justify-content-evenly mb-3">
+                                <p class="mb-auto d-flex"><span class="material-symbols-outlined me-2">warning</span>EXPIRÉ</p>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+                </div>
+                <div class="d-flex gap-3">
+                    <a href="{{ path('app_sample_update', {id: sample.id}) }}" class="btn btn-primary flex-grow-1" aria-label="Modifier un échantillon">Modifier</a>
+                    <a href="{{ path('app_sample_delete', {id: sample.id}) }}" class="btn btn-danger flex-grow-1" aria-label="Supprimer un échantillon">Supprimer</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,407 @@
+[
+    {
+        "name": "Paracetamol",
+        "price": 8.99,
+        "text": "Un analgésique efficace pour soulager la douleur et réduire la fièvre.",
+        "dosage": 500,
+        "unit": "mg",
+        "image": "1.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Ibuprofen",
+        "price": 12.5,
+        "text": "Anti-inflammatoire pour traiter les douleurs articulaires et musculaires.",
+        "dosage": 400,
+        "unit": "mg",
+        "image": "2.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Amoxicillin",
+        "price": 18.75,
+        "text": "Antibiotique utilisé pour traiter diverses infections bactériennes.",
+        "dosage": 250,
+        "unit": "mg",
+        "image": "3.png",
+        "pharmacyOnly": 1
+    },
+    {
+        "name": "Cough Syrup",
+        "price": 14.3,
+        "text": "Sirop pour soulager la toux et calmer les irritations de la gorge.",
+        "dosage": 10,
+        "unit": "ml",
+        "image": "4.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Vitamin C",
+        "price": 6.5,
+        "text": "Complément alimentaire pour renforcer le système immunitaire.",
+        "dosage": 1000,
+        "unit": "mg",
+        "image": "5.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Aspirin",
+        "price": 9.99,
+        "text": "Anti-inflammatoire et analgésique pour soulager la douleur et réduire la fièvre.",
+        "dosage": 500,
+        "unit": "mg",
+        "image": "6.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Loratadine",
+        "price": 7.99,
+        "text": "Antihistaminique pour soulager les symptômes d'allergie.",
+        "dosage": 10,
+        "unit": "mg",
+        "image": "7.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Cetirizine",
+        "price": 11.0,
+        "text": "Antihistaminique pour traiter les symptômes d'allergies saisonnières.",
+        "dosage": 10,
+        "unit": "mg",
+        "image": "8.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Metformin",
+        "price": 15.4,
+        "text": "Médicament pour le traitement du diabète de type 2.",
+        "dosage": 500,
+        "unit": "mg",
+        "image": "9.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Simvastatin",
+        "price": 18.0,
+        "text": "Médicament pour réduire le cholestérol.",
+        "dosage": 20,
+        "unit": "mg",
+        "image": "10.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Omeprazole",
+        "price": 10.99,
+        "text": "Inhibiteur de la pompe à protons pour traiter les ulcères gastriques.",
+        "dosage": 20,
+        "unit": "mg",
+        "image": "11.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Diphenhydramine",
+        "price": 5.99,
+        "text": "Antihistaminique utilisé contre les allergies et l'insomnie.",
+        "dosage": 25,
+        "unit": "mg",
+        "image": "12.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Ranitidine",
+        "price": 7.5,
+        "text": "Médicament pour traiter les troubles gastriques et les brûlures d'estomac.",
+        "dosage": 150,
+        "unit": "mg",
+        "image": "13.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Fexofenadine",
+        "price": 8.25,
+        "text": "Antihistaminique pour soulager les symptômes d'allergie.",
+        "dosage": 120,
+        "unit": "mg",
+        "image": "14.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Hydroxychloroquine",
+        "price": 16.3,
+        "text": "Médicament utilisé pour traiter le paludisme et les maladies auto-immunes.",
+        "dosage": 200,
+        "unit": "mg",
+        "image": "15.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Prednisone",
+        "price": 14.0,
+        "text": "Corticostéroïde pour traiter les inflammations et les maladies auto-immunes.",
+        "dosage": 10,
+        "unit": "mg",
+        "image": "16.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Lisinopril",
+        "price": 7.8,
+        "text": "Médicament pour traiter l'hypertension et les maladies cardiaques.",
+        "dosage": 10,
+        "unit": "mg",
+        "image": "17.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Losartan",
+        "price": 13.5,
+        "text": "Médicament pour traiter l'hypertension et protéger les reins.",
+        "dosage": 50,
+        "unit": "mg",
+        "image": "18.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Hydrochlorothiazide",
+        "price": 5.99,
+        "text": "Diurétique pour traiter l'hypertension et les oedèmes.",
+        "dosage": 25,
+        "unit": "mg",
+        "image": "19.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Gabapentin",
+        "price": 12.75,
+        "text": "Anticonvulsivant et médicament pour la douleur nerveuse.",
+        "dosage": 300,
+        "unit": "mg",
+        "image": "20.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Zolpidem",
+        "price": 9.99,
+        "text": "Médicament utilisé pour traiter l'insomnie.",
+        "dosage": 10,
+        "unit": "mg",
+        "image": "21.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Clonazepam",
+        "price": 10.99,
+        "text": "Médicament anxiolytique utilisé pour traiter les troubles d'anxiété.",
+        "dosage": 0.5,
+        "unit": "mg",
+        "image": "22.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Amlodipine",
+        "price": 6.7,
+        "text": "Médicament pour traiter l'hypertension et les maladies cardiaques.",
+        "dosage": 5,
+        "unit": "mg",
+        "image": "23.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Valaciclovir",
+        "price": 15.8,
+        "text": "Antiviral utilisé pour traiter les infections causées par le virus de l'herpès.",
+        "dosage": 500,
+        "unit": "mg",
+        "image": "24.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Acetaminophen",
+        "price": 7.0,
+        "text": "Analgesique et antipyrétique pour soulager la douleur et la fièvre.",
+        "dosage": 500,
+        "unit": "mg",
+        "image": "25.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Ciprofloxacin",
+        "price": 17.25,
+        "text": "Antibiotique de la famille des fluoroquinolones.",
+        "dosage": 250,
+        "unit": "mg",
+        "image": "26.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Furosemide",
+        "price": 5.5,
+        "text": "Diurétique pour traiter l'hypertension et l'insuffisance cardiaque.",
+        "dosage": 40,
+        "unit": "mg",
+        "image": "27.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Tamsulosin",
+        "price": 13.99,
+        "text": "Médicament utilisé pour traiter l'hypertrophie bénigne de la prostate.",
+        "dosage": 0.4,
+        "unit": "mg",
+        "image": "28.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Doxycycline",
+        "price": 9.5,
+        "text": "Antibiotique utilisé pour traiter diverses infections.",
+        "dosage": 100,
+        "unit": "mg",
+        "image": "29.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Sildenafil",
+        "price": 18.5,
+        "text": "Médicament utilisé pour traiter la dysfonction érectile.",
+        "dosage": 50,
+        "unit": "mg",
+        "image": "30.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Pantoprazole",
+        "price": 11.0,
+        "text": "Inhibiteur de la pompe à protons pour traiter les ulcères gastriques.",
+        "dosage": 40,
+        "unit": "mg",
+        "image": "31.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Fluoxetine",
+        "price": 12.99,
+        "text": "Antidépresseur de la classe des ISRS, utilisé pour traiter la dépression.",
+        "dosage": 20,
+        "unit": "mg",
+        "image": "32.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Methylprednisolone",
+        "price": 14.99,
+        "text": "Corticostéroïde utilisé pour traiter l'inflammation.",
+        "dosage": 4,
+        "unit": "mg",
+        "image": "33.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Epinephrine",
+        "price": 10.5,
+        "text": "Utilisé dans le traitement des réactions allergiques graves.",
+        "dosage": 0.3,
+        "unit": "mg",
+        "image": "34.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Methotrexate",
+        "price": 16.0,
+        "text": "Médicament immunosuppresseur utilisé pour traiter les cancers et les maladies auto-immunes.",
+        "dosage": 10,
+        "unit": "mg",
+        "image": "35.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Trazodone",
+        "price": 11.2,
+        "text": "Antidépresseur utilisé aussi pour traiter l'insomnie.",
+        "dosage": 50,
+        "unit": "mg",
+        "image": "36.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Levothyroxine",
+        "price": 7.8,
+        "text": "Médicament pour traiter l'hypothyroïdie.",
+        "dosage": 50,
+        "unit": "mcg",
+        "image": "37.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Bisoprolol",
+        "price": 12.0,
+        "text": "Médicament utilisé pour traiter l'hypertension et les troubles cardiaques.",
+        "dosage": 5,
+        "unit": "mg",
+        "image": "38.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Methadone",
+        "price": 13.25,
+        "text": "Médicament utilisé pour traiter la douleur sévère et les dépendances.",
+        "dosage": 10,
+        "unit": "mg",
+        "image": "39.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Fentanyl",
+        "price": 15.5,
+        "text": "Analgésique puissant utilisé pour traiter la douleur sévère.",
+        "dosage": 12,
+        "unit": "mcg",
+        "image": "40.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Pregabalin",
+        "price": 17.0,
+        "text": "Médicament pour traiter l'épilepsie et la douleur neuropathique.",
+        "dosage": 75,
+        "unit": "mg",
+        "image": "41.png",
+        "pharmacyOnly": false
+    },
+    {
+        "name": "Duloxetine",
+        "price": 13.5,
+        "text": "Antidépresseur utilisé aussi pour traiter les douleurs neuropathiques.",
+        "dosage": 30,
+        "unit": "mg",
+        "image": "42.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Alprazolam",
+        "price": 8.99,
+        "text": "Anxiolytique utilisé pour traiter les troubles anxieux.",
+        "dosage": 0.5,
+        "unit": "mg",
+        "image": "44.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Propranolol",
+        "price": 10.2,
+        "text": "Médicament utilisé pour traiter l'hypertension et les troubles cardiaques.",
+        "dosage": 40,
+        "unit": "mg",
+        "image": "45.png",
+        "pharmacyOnly": true
+    },
+    {
+        "name": "Spironolactone",
+        "price": 6.75,
+        "text": "Diurétique utilisé pour traiter l'hypertension et l'insuffisance cardiaque.",
+        "dosage": 25,
+        "unit": "mg",
+        "image": "46.png",
+        "pharmacyOnly": true
+    }
+]

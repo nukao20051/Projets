@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ medication.name }}
+{% endblock %}
+
+{% block body %}
+    <div class="d-md-flex flex-row justify-content-center align-items-center">
+        {% if medication.img %}
+            <img src="{{ medication.getImgBase64() }}" alt="Image du médicament {{ medication.name }}">
+        {% else %}
+            <img src="{{ asset('img/med_default.png') }}" alt="Image par défaut pour {{ medication.name }}">
+        {% endif %}
+        <div class="d-md-flex flex-column">
+            <ul class="list-group">
+                <li class="name list-group-item text-center h2 m-0">{{ medication.name }}</li>
+                <li class="description list-group-item"><strong>Description</strong> : {{ medication.text }}</li>
+                <li class="price list-group-item"><strong>Prix</strong> : {{ medication.price|number_format(2, ',', '') }} € TTC</li>
+                <li class="dosage list-group-item"><strong>Dosage</strong> : {{ medication.dosage }} {{ medication.unit }}</li>
+            </ul>
+            <form class="d-inline-flex mt-3 w-100 ">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('app_medication_update', {id: medication.id}) }}" class="btn btn-warning w-100
+                    {% if medication.samples|length <= 0 %}
+                        me-3" aria-label="Modifier les informations de {{ medication.name }}">Modifier</a>
+                    <a href="{{ path('app_medication_delete', {id: medication.id}) }}" class="btn btn-danger w-100" aria-label="Supprimer {{ medication.name }}">Supprimer</a>
+                    {% else %}
+                        ">Modifier</a>
+                    {% endif %}
+                {% elseif inStock == 1 %}
+                    <a class="btn btn-primary w-100" href="{{ path('app_medication_add_to_cart', {id: medication.id}) }}" aria-label="Ajouter {{ medication.name }} au panier">Ajouter au panier</a>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

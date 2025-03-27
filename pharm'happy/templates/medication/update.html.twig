@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de médicament{% endblock %}
+
+{% block body %}
+    <h1>Modification du médicament : {{ medication.name }}</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form, {
+        attr: {class: 'form-horizontal'}
+    }) }}
+    <button class="btn btn-success mt-3">Enregistrer</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_medication') }}" class="btn btn-secondary mt-3">Annuler</a>
+{% endblock %}

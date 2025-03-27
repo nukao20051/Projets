@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout d'un échantillon{% endblock %}
+
+{% block body %}
+    <h1>Ajout d'un échantillon</h1>
+    {{ form_start(form, {method: 'POST'}) }}
+    {{ form_row(form.medication, {label: 'Médicament'}) }}
+    {{ form_row(form.expiration, {label: 'Date d\'expiration'}) }}
+    {{ form_row(form.order, {label: 'Numéro de commande'}) }}
+    {{ form_row(form.repeatCount, {label: 'Nombre de copies'}) }}
+    <div class="w-100 p-3">
+        <input type="submit" class="btn btn-primary" value="Ajouter"/>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

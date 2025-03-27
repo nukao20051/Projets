@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'adresse{% endblock %}
+
+{% block body %}
+    {{ include('address/_form.html.twig', {title: 'Modifier l\'adresse', submit_label: 'Modifier'}) }}
+{% endblock %}
